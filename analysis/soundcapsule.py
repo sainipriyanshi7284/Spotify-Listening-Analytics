@@ -2,14 +2,14 @@ import pandas as pd
 
 def sound_capsule(df):
         
-    df["timestamp"] = (
+    df["ts"] = (
         pd.to_datetime(
-            df["timestamp"]
+            df["ts"]
         )
     )
 
     df["month"] = (
-        df["timestamp"]
+        df["ts"]
         .dt.strftime("%B")
     )
 
@@ -23,8 +23,8 @@ def sound_capsule(df):
     for month in months:
         month_df=(df[df["month"]==month])
         minute = float(month_df["ms_played"].sum()/60000)
-        track = (month_df["track_name"].value_counts().idxmax())
-        artist = (month_df["artist_name"].value_counts().idxmax())
+        track = (month_df["master_metadata_track_name"].value_counts().idxmax())
+        artist = (month_df["master_metadata_album_artist_name"].value_counts().idxmax())
 
         result[month] = {
             "Minutes": round(minute,1),

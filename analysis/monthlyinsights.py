@@ -3,14 +3,14 @@ import pandas as pd
 
 def listening_by_month(df):
 
-    df["timestamp"] = (
+    df["ts"] = (
         pd.to_datetime(
-            df["timestamp"]
+            df["ts"]
         )
     )
 
     df["month"] = (
-        df["timestamp"]
+        df["ts"]
         .dt.strftime("%b")
     )
 

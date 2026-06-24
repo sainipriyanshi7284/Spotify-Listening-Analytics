@@ -2,14 +2,14 @@ import pandas as pd
 
 def listening_by_hour(df):
 
-    df["timestamp"] = (
+    df["ts"] = (
         pd.to_datetime(
-            df["timestamp"]
+            df["ts"]
         )
     )
 
     counts = (
-        df["timestamp"]
+        df["ts"]
         .dt.hour
         .value_counts()
         .sort_index()
