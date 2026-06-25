@@ -13,6 +13,21 @@ text-align:center;
 
 }
 
+#month{
+    padding:25px 50px;
+    block-size: auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:15px;
+}
+
+.active{
+    background:#1ed760;
+    transform:scale(1.05);
+
+}
+
 button{
 background:#1DB954;
 color:white;
@@ -42,7 +57,7 @@ margin-top:0px;
 background:#202020;
 padding:30px;
 border-radius:20px;
-min-height:200px;
+min-height:300px;
 max-width:900px;
 margin:auto;
 text-align: center;
