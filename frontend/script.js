@@ -11,100 +11,84 @@ document.getElementById("year")
 const capsule =
 document.getElementById("capsule")
 
-function showYear(year){
-content.innerHTML=
-`
-<h2>🎵 ${year} Wrapped </h2>
-<p><br>
+const generate = document.getElementById("generate")
+const upload = document.getElementById("upload")
 
-<b>Minutes:</b>
-24910 <br> <br>
+let uploadedYears = []
 
-<b>Top Artist: </b>
-Pritam <br> <br>
+generate.onclick = async function() {
+    const file = upload.files[0]
+    
+    if (!file) {
+        alert("Please choose a file first!")
+        return
+    }
 
-<b>Peak Hour:</b>
-2 AM <br> <br>
-</p>
+    const formData = new FormData()
+    formData.append("file", file)
 
-`
+    const res = await fetch("http://localhost:8000/upload", {
+        method: "POST",
+        body: formData
+    })
+
+    const data = await res.json()
+    uploadedYears.push(data.year)
+    alert(`✅ ${data.year} data loaded! Uploaded years: ${uploadedYears}`)
+    
+    // show menu after upload
+    document.getElementById("menu").style.display = "flex"
+}
+
+async function showYear(y){
+    const res = await fetch(`http://localhost:8000/insights/${y}`)
+    const data = await res.json()
+
+    const artistRes = await fetch(`http://localhost:8000/charts/artists/${y}`)
+    const artistData = await artistRes.json()
+
+    const hourRes = await fetch(`http://localhost:8000/charts/hour/${y}`)
+    const hourData = await hourRes.json()
+
+    content.innerHTML = `
+        <h2>🎵 ${y} Wrapped</h2>
+        <div class="stat-card">⏱️ Minutes: ${data.total_minutes}</div>
+        <div class="stat-card">🎵 Tracks: ${data.total_tracks}</div>
+        <div class="stat-card">🎤 Artists: ${data.total_artists}</div>
+        <div class="stat-card">⭐ Top Artist: ${data.top_artist}</div>
+        <div class="stat-card">⏰ Peak Hour: ${data.peak_hour}</div>
+
+        <br>
+        <img src="data:image/png;base64,${artistData.chart}" style="width:100%;border-radius:15px;margin-top:20px">
+        <img src="data:image/png;base64,${hourData.chart}" style="width:100%;border-radius:15px;margin-top:20px">
+    `
 }
 
 
+alltime.onclick = async function() {
+    const res = await fetch(`http://localhost:8000/insights/${uploadedYears[uploadedYears.length-1]}`)
+    const data = await res.json()
 
-alltime.onclick=function(){
-
-content.innerHTML=
-`
-<h2>🎵 All Time Wrapped</h2>
-
-<p>
-Your complete listening history
-</p>
-
-`
-
+    content.innerHTML = `
+        <h2>🎵 All Time Wrapped </h2>
+        <div class="stat-card">⏱️ Minutes: ${data.total_minutes}</div>
+        <div class="stat-card">🎵 Tracks: ${data.total_tracks}</div>
+        <div class="stat-card">🎤 Artists: ${data.total_artists}</div>
+        <div class="stat-card">⭐ Top Artist: ${data.top_artist}</div>
+        <div class="stat-card">⏰ Peak Hour: ${data.peak_hour}</div>
+    `
 }
 
 
-year.onclick=function(){
-
-content.innerHTML=
-`
-<h2>📅 Year Wrapped</h2>
-
-<p>
-Choose a year...
-</p>
-
-<button id="yearchoice1">
-2026
-</button>
-
-<button id="yearchoice2">
-2025
-</button>
-
-<button id="yearchoice3">
-2024
-</button>
-
-<button id="yearchoice4">
-2023
-</button>
-
-
-`
-const y2026=
-document.getElementById("yearchoice1")
-
-const y2025=
-document.getElementById("yearchoice2")
-
-const y2024=
-document.getElementById("yearchoice3")
-
-const y2023=
-document.getElementById("yearchoice4")
-
-
-
-y2026.onclick=function(){
-showYear(2026)
+year.onclick = function() {
+    content.innerHTML = `<h2>📅 Year Wrapped</h2><p>Choose a year...</p>`
+    
+    uploadedYears.forEach(y => {
+        content.innerHTML += `<button onclick="showYear(${y})">${y}</button>`
+    })
 }
 
-y2025.onclick=function(){
-showYear(2025)
-}
 
-y2024.onclick=function(){
-showYear(2024)
-}
-
-y2023.onclick=function(){
-showYear(2023)
-}
-}
 
 
 capsule.onclick=function(){
@@ -119,145 +103,87 @@ Monthly listening capsule
 
 <div id="month">
 
-<button id="month1">
+<button id="January">
 JANUARY
 </button>
 
-<button id="month2">
+<button id="February">
 FEBRUARY
 </button>
 
-<button id="month3">
+<button id="March">
 MARCH
 </button>
 
-<button id="month4">
+<button id="April">
 APRIL
 </button>
 
-<button id="month5">
+<button id="May">
 MAY
 </button>
 
-<button id="month6">
+<button id="June">
 JUNE
 </button>
 
-<button id="month7">
+<button id="July">
 JULY
 </button>
 
-<button id="month8">
+<button id="August">
 AUGUST
 </button>
 
-<button id="month9">
+<button id="September">
 SEPTEMBER
 </button>
 
-<button id="month10">
+<button id="October">
 OCTOBER
 </button>
 
-<button id="month11">
-NOVEMEBER
+<button id="November">
+NOVEMBER
 </button>
 
-<button id="month12">
+<button id="December">
 DECEMBER
 </button>
 
 </div>
 
 
-
-
 `
-const m1=
-document.getElementById("month1")
 
-const m2=
-document.getElementById("month2")
+let months=["January","February","March","April","May","June","July","August","September","October","November","December"]
 
-const m3=
-document.getElementById("month3")
+for(let i=0; i<months.length;i++ ){
+    const btn = document.getElementById(months[i])
+    const monthname = months[i]
 
-const m4=
-document.getElementById("month4")
+    console.log(btn)
 
-const m5=
-document.getElementById("month5")
+    if(btn){
 
-const m6=
-document.getElementById("month6")
+    btn.onclick = async function() {
+    const res = await fetch(`http://localhost:8000/capsule/${uploadedYears[uploadedYears.length-1]}`)
+    const data = await res.json()
+    
+    const monthData = data[monthname]
+    
+    if (!monthData) {
+        content.innerHTML = `<h2>No data for ${monthname} 😔</h2>`
+        return
+    }
 
-const m7=
-document.getElementById("month7")
-
-const m8=
-document.getElementById("month8")
-
-const m9=
-document.getElementById("month9")
-
-const m10=
-document.getElementById("month10")
-
-const m11=
-document.getElementById("month11")
-
-const m12=
-document.getElementById("month12")
-
-
-
-m1.onclick=function(){
-showYear("January")
+    content.innerHTML = `
+        <h2>📦 ${monthname} Capsule</h2>
+        <div class="stat-card">⏱️ Minutes: ${monthData.Minutes}</div>
+        <div class="stat-card">🎵 Top Track: ${monthData["Top-Track"]}</div>
+        <div class="stat-card">🎤 Top Artist: ${monthData["Top-Artist"]}</div>
+    `
 }
-
-m2.onclick=function(){
-showYear("February")
+    }
 }
-
-m3.onclick=function(){
-showYear("March")
 }
-
-m4.onclick=function(){
-showYear("April")
-}
-m5.onclick=function(){
-showYear("May")
-}
-
-m6.onclick=function(){
-showYear("June")
-}
-m7.onclick=function(){
-showYear("July")
-}
-
-m8.onclick=function(){
-showYear("August")
-}
-m9.onclick=function(){
-showYear("September")
-}
-
-m10.onclick=function(){
-showYear("October")
-}
-m11.onclick=function(){
-showYear("November")
-}
-
-m12.onclick=function(){
-showYear("December")
-}
-
-}
-
-
-
-
-

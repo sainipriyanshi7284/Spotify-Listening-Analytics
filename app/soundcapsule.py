@@ -10,5 +10,5 @@ def show_sound_capsule(df):
 
         Minutes:  {data["Minutes"]} min
         Top Track:  {data["Top-Track"]}
-        Top Artist: {data["Top- Artist"]}
+        Top Artist: {data["Top-Artist"]}
         ------------------ """)

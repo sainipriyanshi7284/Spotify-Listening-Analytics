@@ -8,4 +8,4 @@ def get_top_songs(df):
         .head(5)
     )
 
-    return songs
+    return songs.to_dict()
