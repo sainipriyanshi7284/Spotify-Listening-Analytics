@@ -29,7 +29,7 @@ def sound_capsule(df):
         result[month] = {
             "Minutes": round(minute,1),
             "Top-Track": track,
-            "Top- Artist": artist
+            "Top-Artist": artist
         }
 
     return result

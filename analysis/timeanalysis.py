@@ -16,4 +16,4 @@ def listening_by_hour(df):
     )
 
 
-    return counts
+    return counts.to_dict()

@@ -43,4 +43,4 @@ def listening_by_month(df):
 
     counts =(counts[counts>0])
 
-    return counts
+    return counts.to_dict()

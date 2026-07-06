@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spotify Analytics</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="https://open.spotifycdn.com/cdn/images/favicon.0f31d2ea.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<div id="toast-container"></div>
+<body>
+
+<div class="app-shell">
+
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark"><i data-lucide="audio-lines"></i></span>
+      <span class="brand-name">Spotify<br>Analytics</span>
+    </div>
+
+    <nav id="menu" class="nav">
+      <button id="alltime" class="nav-btn">
+        <i data-lucide="infinity"></i>
+        <span>All Time Wrapped</span>
+      </button>
+      <button id="year" class="nav-btn">
+        <i data-lucide="calendar-range"></i>
+        <span>Year Wrapped</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p class="sidebar-label">Uploaded years</p>
+      <div id="uploadedChips" class="chips">
+        <span class="chip chip-empty">None yet</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== Main ===== -->
+  <main class="main">
+
+    <section class="hero" id="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Personal listening intelligence</p>
+        <h1>Your year in<br><span class="grad-text">sound</span>, decoded.</h1>
+        <p class="sub">Drop in your Spotify data export and get a personalized breakdown of your
+          listening habits — year by year, month by month.</p>
+      </div>
+
+      <div class="upload-card" id="intro">
+        <label class="dropzone" for="upload">
+          <i data-lucide="upload-cloud"></i>
+          <span id="fileLabel">Choose your Spotify JSON export</span>
+        </label>
+        <input type="file" id="upload" accept=".json" hidden>
+        <button id="generate">Generate Wrapped</button>
+      </div>
+    </section>
+
+    <section id="content" class="content">
+      <div class="empty-state">
+        <i data-lucide="disc-3"></i>
+        <p>Upload your export, then choose a view from the sidebar.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="script.js"></script>
+</body>
+</html>
