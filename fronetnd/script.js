@@ -7,7 +7,7 @@ const upload = document.getElementById("upload")
 const fileLabel = document.getElementById("fileLabel")
 const uploadedChips = document.getElementById("uploadedChips")
 
-const API ="http://127.0.0.1:8000";
+const API ="https://spotify-listening-analytics-api.onrender.com";
 
 const MONTHS = ["January","February","March","April","May","June","July","August",
                 "September","October","November","December"]
