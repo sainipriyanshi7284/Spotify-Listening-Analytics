@@ -40,6 +40,30 @@ async def upload(file: UploadFile = File(...)):
     return {"status": "success", "year": int(year)}
 
 
+@app.get("/insights/alltime")
+def alltime_insights():
+    if not df_store:
+        return {"error": "No data uploaded"}
+
+    combined_df = pd.concat(df_store.values(), ignore_index=True)
+    
+    summary = get_summary(combined_df)
+    top_artist = get_top_artist(combined_df)
+    hours = listening_by_hour(combined_df)
+    return generate_insights(combined_df, summary, top_artist, hours)
+
+@app.get("/charts/artists/alltime")
+def alltime_artists_chart():
+    combined_df = pd.concat(df_store.values(), ignore_index=True)
+    img = plot_artists(combined_df,return_base64=True)
+    return {"chart": img}
+
+@app.get("/charts/hour/alltime")
+def alltime_hour_chart():
+    combined_df = pd.concat(df_store.values(), ignore_index=True)
+    img = plot_hour(combined_df,return_base64=True)
+    return {"chart": img}
+
 @app.get("/insights/{year}")
 def insights(year:int):
     df = df_store.get(year)
@@ -66,7 +90,7 @@ def artists_chart(year:int):
     df = df_store.get(year)
     if df is None:
         return {"error": f"No data found for {year}. Please upload file first!"}
-    img = plot_artists(df)
+    img = plot_artists(df,return_base64=True)
     return {"chart": img}
 
 
@@ -75,7 +99,7 @@ def hour_chart(year:int):
     df = df_store.get(year)
     if df is None:
         return {"error": f"No data found for {year}. Please upload file first!"}
-    img = plot_hour(df)
+    img = plot_hour(df,return_base64=True)
     return {"chart": img}
 
 
@@ -84,5 +108,6 @@ def monthly_chart(year:int):
     df = df_store.get(year)
     if df is None:
         return {"error": f"No data found for {year}. Please upload file first!"}
-    img = plot_monthly_trends(df)
+    img = plot_monthly_trends(df,return_base64=True)
     return {"chart": img}
+

@@ -16,11 +16,12 @@ def listening_insights(df):
     hours = listening_by_hour(df)
     insight = generate_insights(df,summary,top_artist,hours)
 
+    print("\nLISTENING INSIGHTS🎶\n")
 
+    for insight,count in insight.items():
+        print(f"{insight} -> {count} ")
 
-    print("\nLISTENING INSIGHTS🎶")
-    print(insight)
-    print("")
+    print("\n")
     
 
 
