@@ -8,8 +8,8 @@ Built with Python (FastAPI, Pandas, Matplotlib) on the backend and a lightweight
 
 ## Live Demo
 
-- Frontend: [your-vercel-url.vercel.app](#) <!-- replace with your actual Vercel URL -->
-- Backend API: [your-app-name.onrender.com](#) <!-- replace with your actual Render URL -->
+- Frontend: [https://spotify-analytics-two.vercel.app/](#) 
+- Backend API: [https://spotify-listening-analytics-api.onrender.com/](#) 
 
 Note: the backend is hosted on Render's free tier, so it may take 30-50 seconds to wake up after periods of inactivity.
 
